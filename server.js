@@ -6,8 +6,12 @@ const app = express();
 const httpServer = createServer(app);
 
 const io = new Server(httpServer, {
-    cors: { origin: "*" },
+  cors: {
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+  },
 });
+
 io.on("connection", (socket) => {
     console.log("Client connected:", socket.id);
 
@@ -18,4 +22,5 @@ io.on("connection", (socket) => {
 });
 
 const PORT = process.env.PORT || 4000;
+
 httpServer.listen(PORT, () => console.log(`Socket.IO server running on ${PORT}`));
